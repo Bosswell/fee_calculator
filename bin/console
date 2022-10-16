@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use PragmaGoTech\Interview\Command\CalculateLoanFeeCommand;
+use PragmaGoTech\Interview\FeeCalculator\FeeCalculatorFacade;
+use PragmaGoTech\Interview\FeeCalculator\BreakpointsProvider\ProviderCollection;
+use PragmaGoTech\Interview\FeeCalculator\BreakpointsProvider\CsvProvider;
+use PragmaGoTech\Interview\FeeCalculator\LoanBreakpointsHelper;
+
+// Services
+$providerCollection = new ProviderCollection();
+$providerCollection->add(new CsvProvider(dirname(__DIR__) . '/data/breakpoints.csv'));
+
+$feeCalculatorFacade = new FeeCalculatorFacade(
+    new LoanBreakpointsHelper(),
+    $providerCollection
+);
+
+// Application
+$application = new Application();
+$application->add(new CalculateLoanFeeCommand($feeCalculatorFacade));
+
+$application->run();

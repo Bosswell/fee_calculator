@@ -11,5 +11,16 @@
         "psr-4": {
             "PragmaGoTech\\Interview\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PragmaGoTech\\Interview\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "require": {
+        "symfony/console": "^6.1"
     }
 }
