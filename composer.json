@@ -21,6 +21,7 @@
         "phpunit/phpunit": "^9"
     },
     "require": {
-        "symfony/console": "^6.1"
+        "symfony/console": "^6.1",
+        "mikey179/vfsstream": "^1.6"
     }
 }

@@ -6,7 +6,7 @@ namespace PragmaGoTech\Interview\FeeCalculator;
 
 use PragmaGoTech\Interview\FeeCalculator\Model\LoanAmountBreakpointsList;
 use PragmaGoTech\Interview\FeeCalculator\Model\LoanProposal;
-use PragmaGoTech\Interview\Utils\Math;
+use PragmaGoTech\Interview\Math;
 use ValueError;
 use Error;
 
@@ -32,7 +32,6 @@ class FeeCalculator
         }
 
         $breakpoints = $this->loanBreakpointsList->get($loanProposal->term());
-
         $nearestLoans = $this
             ->loanBreakpointsHelper
             ->findTwoNearestBreakpointsByLoan($loanProposal->amount(), $breakpoints);
@@ -45,6 +44,6 @@ class FeeCalculator
             $nearestLoans['upperFee']
         );
 
-        return Math::round($fee);
+        return Math::roundUp($fee);
     }
 }
