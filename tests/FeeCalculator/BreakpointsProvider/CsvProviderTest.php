@@ -151,17 +151,14 @@ class CsvProviderTest extends TestCase
 
         $csvProvider = new CsvProvider($file1->url());
         $this->expectError();
-        $this->expectErrorMessage('Csv file with loan amount breakpoints does not follow formula. Use "loan, fee, term" headers.');
         $csvProvider->getLoanBreakpointsList();
 
         $csvProvider = new CsvProvider($file2->url());
         $this->expectError();
-        $this->expectErrorMessage('Csv file with loan amount breakpoints does not follow formula. Use "loan, fee, term" headers.');
         $csvProvider->getLoanBreakpointsList();
 
         $csvProvider = new CsvProvider($file3->url());
         $this->expectError();
-        $this->expectErrorMessage('Csv file with loan amount breakpoints does not follow formula. Use "loan, fee, term" headers.');
         $csvProvider->getLoanBreakpointsList();
     }
 }
