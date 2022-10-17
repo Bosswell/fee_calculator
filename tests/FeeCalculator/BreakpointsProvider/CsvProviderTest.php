@@ -112,7 +112,6 @@ class CsvProviderTest extends TestCase
         $csvProvider = new CsvProvider('hello.csv');
 
         $this->expectError();
-        $this->expectErrorMessage('File "hello.csv" does not exist. Provide valid path to loan amount breakpoints file.');
         $csvProvider->getLoanBreakpointsList();
     }
 

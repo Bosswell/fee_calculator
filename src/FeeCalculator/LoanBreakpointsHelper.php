@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PragmaGoTech\Interview\FeeCalculator;
 
 use JetBrains\PhpStorm\ArrayShape;
-use PragmaGoTech\Interview\FeeCalculator\Model\LoanAmountBreakpoints;
+use PragmaGoTech\Interview\FeeCalculator\Model\LoanBreakpoints;
 use ValueError;
 
 final class LoanBreakpointsHelper
@@ -16,7 +16,7 @@ final class LoanBreakpointsHelper
         'bottomFee' => 'int',
         'upperFee' => 'int',
     ])]
-    public function findTwoNearestBreakpointsByLoan(float $loanAmount, LoanAmountBreakpoints $loanBreakpoints): array
+    public function findTwoNearestBreakpointsByLoanAmount(float $loanAmount, LoanBreakpoints $loanBreakpoints): array
     {
         $breakpoints = $loanBreakpoints->all();
 

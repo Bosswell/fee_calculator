@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace PragmaGoTech\Interview\FeeCalculator\BreakpointsProvider;
 
-use PragmaGoTech\Interview\FeeCalculator\Model\LoanAmountBreakpoints;
-use PragmaGoTech\Interview\FeeCalculator\Model\LoanAmountBreakpointsList;
+use PragmaGoTech\Interview\FeeCalculator\Model\LoanBreakpoints;
+use PragmaGoTech\Interview\FeeCalculator\Model\LoanBreakpointsList;
 use PragmaGoTech\Interview\FeeCalculator\Enum\Term;
 use SplFileObject;
 use Error;
 
 final class CsvProvider implements ProviderInterface
 {
-    private LoanAmountBreakpointsList $loanBreakpointsList;
+    private LoanBreakpointsList $loanBreakpointsList;
 
     public function __construct(private readonly string $csvFileName)
     {}
@@ -20,7 +20,7 @@ final class CsvProvider implements ProviderInterface
     /**
      * @throws Error
      */
-    public function getLoanBreakpointsList(): LoanAmountBreakpointsList
+    public function getLoanBreakpointsList(): LoanBreakpointsList
     {
         if (!isset($this->loanBreakpointsList)) {
             $this->createLoanBreakpointsList();
@@ -34,7 +34,7 @@ final class CsvProvider implements ProviderInterface
      */
     private function createLoanBreakpointsList(): void
     {
-        $loanBreakpointsList = new LoanAmountBreakpointsList();
+        $loanBreakpointsList = new LoanBreakpointsList();
 
         foreach ($this->getCsvFileObject() as [$loan, $fee, $term]) {
             if (!is_numeric($loan)) {
@@ -43,7 +43,7 @@ final class CsvProvider implements ProviderInterface
 
             $term = Term::from((int)$term);
             if (!$loanBreakpointsList->has($term)) {
-                $loanBreakpointsList->add(new LoanAmountBreakpoints(), $term);
+                $loanBreakpointsList->add(new LoanBreakpoints(), $term);
             }
 
             $loanBreakpointsList
@@ -60,7 +60,7 @@ final class CsvProvider implements ProviderInterface
     private function getCsvFileObject(): SplFileObject
     {
         if (!file_exists($this->csvFileName)) {
-            throw new Error(sprintf('File "%s" does not exist. Provide valid path to loan amount breakpoints file.', $this->csvFileName));
+            throw new Error(sprintf('The file "%s" does not exist. Provide a valid path to the loan breakpoints file.', $this->csvFileName));
         }
 
         $csvFileObject = new SplFileObject($this->csvFileName);
@@ -68,7 +68,7 @@ final class CsvProvider implements ProviderInterface
 
         $normalizedHeader = preg_replace('/\s+/', '', $csvFileObject->fgets());
         if ($normalizedHeader !== 'loan,fee,term') {
-            throw new Error('Csv file with loan amount breakpoints does not follow formula. Provide csv file with "loan, fee, term" headers.');
+            throw new Error('The CSV file with loan breakpoints does not match the pattern. Provide the CSV file with the headers "loan, fee, term".');
         }
 
         return $csvFileObject;

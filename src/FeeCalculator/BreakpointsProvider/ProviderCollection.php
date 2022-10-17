@@ -18,7 +18,7 @@ final class ProviderCollection
     public function get(string $provider): ProviderInterface
     {
         if (!isset($this->providers[$provider])) {
-            throw new Error(sprintf('Breakpoints provider [ %s ] has not been registered.', $provider));
+            throw new Error(sprintf('The breakpoints provider [ %s ] has not been registered.', $provider));
         }
 
         return $this->providers[$provider];

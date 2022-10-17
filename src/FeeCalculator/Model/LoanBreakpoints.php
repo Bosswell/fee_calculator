@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PragmaGoTech\Interview\FeeCalculator\Model;
 
-final class LoanAmountBreakpoints
+final class LoanBreakpoints
 {
     private array $map = [];
 

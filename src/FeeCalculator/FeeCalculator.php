@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PragmaGoTech\Interview\FeeCalculator;
 
-use PragmaGoTech\Interview\FeeCalculator\Model\LoanAmountBreakpointsList;
+use PragmaGoTech\Interview\FeeCalculator\Model\LoanBreakpointsList;
 use PragmaGoTech\Interview\FeeCalculator\Model\LoanProposal;
 use PragmaGoTech\Interview\Math;
 use ValueError;
@@ -16,8 +16,8 @@ class FeeCalculator
     private const MAX_LOAN_AMOUNT = 20_000;
 
     public function __construct(
-        private readonly LoanAmountBreakpointsList $loanBreakpointsList,
-        private readonly LoanBreakpointsHelper     $loanBreakpointsHelper
+        private readonly LoanBreakpointsList   $loanBreakpointsList,
+        private readonly LoanBreakpointsHelper $loanBreakpointsHelper
     ) {}
 
     /**
@@ -34,7 +34,7 @@ class FeeCalculator
         $breakpoints = $this->loanBreakpointsList->get($loanProposal->term());
         $nearestLoans = $this
             ->loanBreakpointsHelper
-            ->findTwoNearestBreakpointsByLoan($loanProposal->amount(), $breakpoints);
+            ->findTwoNearestBreakpointsByLoanAmount($loanProposal->amount(), $breakpoints);
 
         $fee = Math::linearInterpolate(
             $loanProposal->amount(),

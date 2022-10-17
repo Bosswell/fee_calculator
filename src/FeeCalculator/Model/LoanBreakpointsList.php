@@ -7,17 +7,17 @@ namespace PragmaGoTech\Interview\FeeCalculator\Model;
 use PragmaGoTech\Interview\FeeCalculator\Enum\Term;
 use Error;
 
-final class LoanAmountBreakpointsList
+final class LoanBreakpointsList
 {
-    /** @var LoanAmountBreakpoints[] */
+    /** @var LoanBreakpoints[] */
     private array $loanBreakpoints;
 
-    public function add(LoanAmountBreakpoints $loanBreakpoints, Term $term): void
+    public function add(LoanBreakpoints $loanBreakpoints, Term $term): void
     {
         $this->loanBreakpoints[$term->value] = $loanBreakpoints;
     }
 
-    public function get(Term $term): LoanAmountBreakpoints
+    public function get(Term $term): LoanBreakpoints
     {
         if (!isset($this->loanBreakpoints[$term->value])) {
             throw new Error(sprintf('Loan breakpoints for term [ %s ] does not exists.', $term->name));
